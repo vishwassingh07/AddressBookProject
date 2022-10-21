@@ -14,11 +14,24 @@ namespace BusinessLayer.Service
         {
             this.userRL = userRL;
         }
+
         public UserRegistrationModel UserRegistration(UserRegistrationModel registrationModel)
         {
             try
             {
                 return userRL.UserRegistration(registrationModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public List<UserRetrieveModel> GetAllAddress()
+        {
+            try
+            {
+                return userRL.GetAllAddress();
             }
             catch (Exception)
             {

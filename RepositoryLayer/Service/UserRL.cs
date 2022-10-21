@@ -58,5 +58,40 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+        public List<UserRetrieveModel> GetAllAddress()
+        {
+            List<UserRetrieveModel> addressList = new List<UserRetrieveModel>();
+            SqlConnection connection = new SqlConnection(connectionstring);
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("spRetrieveAddress", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    UserRetrieveModel addressModel = new UserRetrieveModel();
+                    addressModel.FirstName = reader["FirstName"] == DBNull.Value ? default : reader.GetString("FirstName");
+                    addressModel.LastName = reader["LastName"] == DBNull.Value ? default : reader.GetString("LastName");
+                    addressModel.Address = reader["Address"] == DBNull.Value ? default : reader.GetString("Address");
+                    addressModel.City = reader["City"] == DBNull.Value ? default : reader.GetString("City");
+                    addressModel.State = reader["State"] == DBNull.Value ? default : reader.GetString("State");
+                    addressModel.Zip = reader["Zip"] == DBNull.Value ? default : reader.GetInt32("Zip");
+                    addressModel.Phone = reader["Phone"] == DBNull.Value ? default : reader.GetInt64("Phone");
+                    addressModel.Email = reader["Email"] == DBNull.Value ? default : reader.GetString("Email");
+                    addressList.Add(addressModel);
+                };
+                return addressList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

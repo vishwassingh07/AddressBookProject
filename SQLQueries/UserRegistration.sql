@@ -31,3 +31,10 @@ Begin
 	Insert Into AddressBook
 	Values(@FirstName, @LastName, @Address, @City, @State, @Zip, @Phone, @Email)
 End;
+
+------------ Stored Procedure For User Login -----------
+Create Procedure spRetrieveAddress
+As
+Begin
+	Select * From AddressBook
+End

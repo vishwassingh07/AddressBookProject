@@ -35,5 +35,26 @@ namespace AddressBook.Controllers
                 throw;
             }
         }
+        [HttpGet("Retrieve")]
+        public ActionResult RetrieveAddress()
+        {
+            try
+            {
+                var result = userBL.GetAllAddress();
+                if(result != null)
+                {
+                    return this.Ok(new { success = true, message = "Addres Details Fetched Successfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Address Details Could Not Be Fetched" });
+                }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
